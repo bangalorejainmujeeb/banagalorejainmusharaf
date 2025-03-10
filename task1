@@ -1,0 +1,93 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/bangalorejainmujeeb/banagalorejainmusharaf/blob/main/task1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "zFUiUy819gsU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "# Step 1: Create a Sample Dataset\n",
+        "data = {\n",
+        "    'ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],\n",
+        "    'Age': [25, 30, np.nan, 40, 35, np.nan, 50, 45, 38, np.nan],\n",
+        "    'Salary': [50000, 60000, 55000, np.nan, 65000, 70000, 72000, np.nan, 48000, 58000],\n",
+        "    'Department': ['HR', 'IT', 'Finance', 'IT', 'HR', 'Finance', np.nan, 'IT', 'HR', 'Finance']\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Step 2: Handle Missing Values (Without inplace=True)\n",
+        "df['Age'] = df['Age'].fillna(df['Age'].median())  # Filling missing Age with median\n",
+        "df['Salary'] = df['Salary'].fillna(df['Salary'].mean())  # Filling missing Salary with mean\n",
+        "df['Department'] = df['Department'].fillna(df['Department'].mode()[0])  # Filling missing Department with mode\n",
+        "\n",
+        "# Step 3: Convert Categorical Variables using One-Hot Encoding\n",
+        "df = pd.get_dummies(df, columns=['Department'], drop_first=True)  # One-hot encoding\n",
+        "\n",
+        "# Display the cleaned dataset\n",
+        "print(\"Cleaned Dataset:\")\n",
+        "print(df)\n"
+      ],
+      "metadata": {
+        "id": "PGcGBsnw89Ec",
+        "outputId": "8026092d-a9bb-4505-d92c-62a940ac5f49",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Cleaned Dataset:\n",
+            "   ID   Age   Salary  Department_HR  Department_IT\n",
+            "0   1  25.0  50000.0           True          False\n",
+            "1   2  30.0  60000.0          False           True\n",
+            "2   3  38.0  55000.0          False          False\n",
+            "3   4  40.0  59750.0          False           True\n",
+            "4   5  35.0  65000.0           True          False\n",
+            "5   6  38.0  70000.0          False          False\n",
+            "6   7  50.0  72000.0          False          False\n",
+            "7   8  45.0  59750.0          False           True\n",
+            "8   9  38.0  48000.0           True          False\n",
+            "9  10  38.0  58000.0          False          False\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Welcome To Colab",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
